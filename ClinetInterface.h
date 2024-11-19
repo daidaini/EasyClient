@@ -18,7 +18,7 @@
  * @param msgCb 消息回调函数
  * @return client句柄
  */
-HD_API void *HDCreateClient(const char *ipAddr, OnConnectionFuncType connCb, OnMsgFuncType msgCb);
+HD_API void *HDCreateClient(const char *ipAddr, OnConnectionFuncType connCb, OnMsgFuncType msgCb, bool needReconnect);
 
 /**
  * @brief 释放client实例
