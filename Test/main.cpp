@@ -7,7 +7,7 @@
 #include <thread>
 #include <unistd.h>
 
-using CreateClientFuncType = void *(*)(const char *, OnConnectionFuncType, OnMsgFuncType);
+using CreateClientFuncType = void *(*)(const char *, OnConnectionFuncType, OnMsgFuncType, bool);
 using DeleteCleintFuncType = void (*)(void *);
 using SendMsgFuncType = void (*)(void *, const char *, size_t);
 
@@ -44,7 +44,7 @@ void Test()
 
     assert(create_client != nullptr);
 
-    void *client = create_client("172.30.223.114:8888", OnConnection, OnMsg);
+    void *client = create_client("172.30.223.114:8888", OnConnection, OnMsg, false);
     if (client == nullptr)
     {
         printf("create client failed\n");

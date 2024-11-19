@@ -13,7 +13,7 @@ namespace HD
     class AsioClient
     {
     public:
-        AsioClient(const std::string &ipAddr, OnConnectionFuncType connCb, OnMsgFuncType cb);
+        AsioClient(const std::string &ipAddr, OnConnectionFuncType connCb, OnMsgFuncType cb, bool needReconnect = false);
         ~AsioClient();
 
         void Run();

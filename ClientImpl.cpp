@@ -1,9 +1,9 @@
 #include "ClinetInterface.h"
 #include "AsioClient.h"
 
-void *HDCreateClient(const char *ipAddr, OnConnectionFuncType connCb, OnMsgFuncType msgCb)
+void *HDCreateClient(const char *ipAddr, OnConnectionFuncType connCb, OnMsgFuncType msgCb, bool needReconnect)
 {
-    HD::AsioClient *client = new HD::AsioClient(ipAddr, connCb, msgCb);
+    HD::AsioClient *client = new HD::AsioClient(ipAddr, connCb, msgCb, needReconnect);
 
     client->Run();
 

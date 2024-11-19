@@ -3,7 +3,8 @@
 
 namespace HD
 {
-    AsioClient::AsioClient(const std::string &ipAddr, OnConnectionFuncType connCb, OnMsgFuncType cb)
+    AsioClient::AsioClient(const std::string &ipAddr, OnConnectionFuncType connCb, OnMsgFuncType cb, bool needReconnect)
+        : m_NeedReConnect(needReconnect)
     {
         auto items = str::Split(ipAddr, ':');
         if (items.size() < 2)
