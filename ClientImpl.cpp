@@ -10,16 +10,21 @@ void *HDCreateClient(const char *ipAddr, OnConnectionFuncType connCb, OnMsgFuncT
     return (void *)client;
 }
 
+void HDCloseClient(void *client)
+{
+    if (client == nullptr)
+        return;
+
+    HD::AsioClient *asioCli = (HD::AsioClient *)client;
+    asioCli->Close();
+}
+
 void HDDeleteCleint(void *client)
 {
-    if (client != nullptr)
-    {
-        HD::AsioClient *asioCli = (HD::AsioClient *)client;
+    if (client == nullptr)
+        return;
 
-        asioCli->Close();
-
-        delete asioCli;
-    }
+    delete ((HD::AsioClient *)client);
 }
 
 void HDSendMsg(void *client, const char *msg, size_t msglen)

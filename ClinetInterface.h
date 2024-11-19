@@ -21,6 +21,20 @@
 HD_API void *HDCreateClient(const char *ipAddr, OnConnectionFuncType connCb, OnMsgFuncType msgCb, bool needReconnect);
 
 /**
+ * @brief 发送请求消息
+ *
+ * @param msg
+ * @param msglen
+ */
+HD_API void HDSendMsg(void *client, const char *msg, size_t msglen);
+
+/**
+ * @brief 主动断开用户的连接，使该用户不再有效
+ *
+ */
+HD_API void HDCloseClient(void *client);
+
+/**
  * @brief 释放client实例
  *
  * @param client
@@ -28,10 +42,8 @@ HD_API void *HDCreateClient(const char *ipAddr, OnConnectionFuncType connCb, OnM
  */
 HD_API void HDDeleteCleint(void *client);
 
-/**
- * @brief 发送请求消息
- *
- * @param msg
- * @param msglen
+/*断开用户的流程
+ * 1. 断开用户连接 HDCloseClient
+ * 2. 等待 OnConnectionFuncType 确定断开
+ * 3. 删除用户实例 HDDeleteCleint
  */
-HD_API void HDSendMsg(void *client, const char *msg, size_t msglen);

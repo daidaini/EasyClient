@@ -9,6 +9,7 @@
 
 using CreateClientFuncType = void *(*)(const char *, OnConnectionFuncType, OnMsgFuncType, bool);
 using DeleteCleintFuncType = void (*)(void *);
+using CloseClientFuncType = void (*)(void *);
 using SendMsgFuncType = void (*)(void *, const char *, size_t);
 
 bool g_IsConnected = false;
@@ -40,11 +41,12 @@ void Test()
 
     CreateClientFuncType create_client = (CreateClientFuncType)dlsym(handle, "HDCreateClient");
     DeleteCleintFuncType delete_client = (DeleteCleintFuncType)dlsym(handle, "HDDeleteCleint");
+    CloseClientFuncType close_client = (CloseClientFuncType)dlsym(handle, "HDCloseClient");
     SendMsgFuncType send_msg = (SendMsgFuncType)dlsym(handle, "HDSendMsg");
 
     assert(create_client != nullptr);
 
-    void *client = create_client("172.30.223.114:8888", OnConnection, OnMsg, false);
+    void *client = create_client("127.0.0.1:8888", OnConnection, OnMsg, false);
     if (client == nullptr)
     {
         printf("create client failed\n");
@@ -65,11 +67,17 @@ void Test()
     }
 
     // getchar();
-    std::this_thread::sleep_for(std::chrono::seconds(25));
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 
     send_msg(client, "prepare to end", 14);
-    ::sleep(1);
+    close_client(client);
 
+    do
+    {
+        ::sleep(1);
+    } while (g_IsConnected);
+
+    printf("prepare to delete..\n");
     delete_client(client);
 }
 
