@@ -65,6 +65,7 @@ namespace HD
                 {
                     m_Connected = true;
                     this->m_ConnCb(ErrorCode::Succcess);
+                    this->m_WriteMsgs.clear();
                     DoRead();
                     StartRepeatTimer();
                 }
