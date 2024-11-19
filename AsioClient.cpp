@@ -154,10 +154,6 @@ namespace HD
                     {
                         this->DoWrite();
                     }
-                    else
-                    {
-                        this->DoRead();
-                    }
                 }
                 else
                 {
