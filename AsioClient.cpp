@@ -110,6 +110,7 @@ namespace HD
                 else
                 {
                     this->m_Cb(ErrorCode::Fail, ec.message().c_str(), ec.message().size());
+                    this->m_ConnCb(ErrorCode::Fail);
 
                     // 断开连接
                     m_Connected = false;
@@ -159,6 +160,7 @@ namespace HD
                 else
                 {
                     this->m_Cb(ErrorCode::Fail, ec.message().c_str(), ec.message().size());
+                    this->m_ConnCb(ErrorCode::Fail);
                     m_Connected = false;
                     if (this->m_Socket != nullptr)
                     {
